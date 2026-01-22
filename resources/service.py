@@ -3,15 +3,19 @@ from resources.schema import Resource
 
 
 
+
 def create_source(payload: Resource, user):
-    user_data = {
+    source_data = {
         "type": payload.type,
         "status": payload.status,
         "created_by": user.id   ,
         "capacity": payload.capacity,
         }
 
-    return repository.insert_resource(user_data)
+
+
+
+    return repository.insert_resource(source_data)
 
 
 
@@ -22,5 +26,8 @@ def get_resources(user):
 
 
 def get_resources_by_incident(incident_id):
-    return repository.list_resources_by_incident(incident_id).data
+    return repository.list_resources_by_incident(incident_id)
+
+
+
 

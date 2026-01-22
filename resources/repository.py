@@ -2,7 +2,7 @@ from db.supabase import supabase
 
 
 def insert_resource(resource: dict):
-    return(
+    return (
         supabase.
         table("resources")
         .insert(resource)
@@ -11,7 +11,7 @@ def insert_resource(resource: dict):
 
 
 def list_resources(user_id):
-    return(
+    return (
         supabase.
         table("resources")
         .select("id", "type", "status", "capacity")
@@ -21,11 +21,22 @@ def list_resources(user_id):
 
     )
 
+
 def list_resources_by_incident(incident_id):
-    return(
-        supabase.
-        table("incident_resources")
-        .select("resource_id")
+    response = (
+        supabase
+        .table("incident_resources")
+        .select("resources(*)")
         .eq("incident_id", incident_id)
         .execute()
     )
+    return [row["resources"] for row in response.data]
+
+
+# return(
+#     supabase.
+#     table("incident_resources")
+#     .select("resource_id")
+#     .eq("incident_id", incident_id)
+#     .execute()
+# )

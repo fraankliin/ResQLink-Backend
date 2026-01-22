@@ -11,3 +11,7 @@ class IncidentSchema(BaseModel):
 
 class IncidentResourceSchema(BaseModel):
     resource_id: str = Field(..., min_length=1)
+
+
+class IncidentStatusUpdate(BaseModel):
+    status: str = Field(..., min_length=1)

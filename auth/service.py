@@ -56,7 +56,7 @@ def login_supabase(payload: UserLogin):
         raise HTTPException(status_code=401, detail=f"Supabase error: {str(e)}")
 
 
-def get_current_user(authorization: str = Header(...)):
+async def get_current_user(authorization: str = Header(...)):
     try:
         token = authorization.replace("Bearer ", "")
         res = verify_jwt_token(token)

@@ -10,7 +10,7 @@ def insert_incident(incident: dict):
     )
 
 
-def insert_incident_resources(incident_resources: dict):
+async def insert_incident_resources(incident_resources: dict):
     return(
         supabase
         .table("incident_resources")
@@ -29,7 +29,7 @@ def list_incidents(user_id):
 
     )
 
-def update_incident_assign(rescuer_id, incident_id):
+async def update_incident_assign(rescuer_id, incident_id):
     return(
         supabase
         .table("incidents")
@@ -40,7 +40,7 @@ def update_incident_assign(rescuer_id, incident_id):
     )
 
 
-def update_status_rescuer(rescuer_id):
+async def update_status_rescuer(rescuer_id):
     return (
         supabase
         .table('users')
@@ -59,5 +59,15 @@ def list_incidents_rescuer(rescuer_id):
         .table("incidents")
         .select()
         .eq("assigned_to", rescuer_id)
+        .execute()
+    )
+
+
+async def update_status(incident_id, status):
+    return(
+        supabase
+        .table("incidents")
+        .update({"status": status})
+        .eq("id", incident_id)
         .execute()
     )
