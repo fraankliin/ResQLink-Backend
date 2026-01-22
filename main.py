@@ -8,6 +8,7 @@ from auth.router import router as auth_router
 from incidents.router import router as incident_router
 from resources.router import router as resources_router
 from websocket.routes import router as websocket_router
+from notes.router import router as note_router
 from core import logger_config
 
 
@@ -39,3 +40,4 @@ app.include_router(auth_router)
 app.include_router(incident_router)
 app.include_router(resources_router)
 app.include_router(websocket_router)
+app.include_router(note_router)
