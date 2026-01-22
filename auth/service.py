@@ -3,7 +3,7 @@ from fastapi.params import Header
 from supabase_auth.errors import AuthApiError
 
 from auth.schemas import UserCreate, UserLogin
-from auth.repository import create_user, sign_up, sign_in, verify_jwt_token, update_session_user
+from auth.repository import create_user, sign_up, sign_in, verify_jwt_token, update_session_user, logout_user, list_rescuers
 from core import security
 import logging
 
@@ -43,7 +43,8 @@ def login_supabase(payload: UserLogin):
         if not session.session:
             raise HTTPException(status_code=401, detail="Email o contraseña incorrectos")
 
-        update_session_user()
+
+        update_session_user(session.session.user.id)
 
         return {
             "access_token": session.session.access_token,
@@ -72,6 +73,10 @@ def get_current_user(authorization: str = Header(...)):
         )
 
 
-# def get_rescue_available
+def close_session(user):
+    return logout_user(user.id)
 
 
+
+def get_rescuers():
+    return list_rescuers().data

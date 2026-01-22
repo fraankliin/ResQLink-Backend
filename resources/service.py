@@ -19,3 +19,8 @@ def create_source(payload: Resource, user):
 def get_resources(user):
     return repository.list_resources(user.id).data
 
+
+
+def get_resources_by_incident(incident_id):
+    return repository.list_resources_by_incident(incident_id).data
+

@@ -20,3 +20,15 @@ def register_user(payload: UserCreate):
 @router.post("/login", status_code=status.HTTP_200_OK)
 def login_user(payload:UserLogin ):
     return service.login_supabase(payload)
+
+@router.post("/logout", status_code=status.HTTP_200_OK)
+def logout_user(user=Depends(service.get_current_user)):
+    return service.close_session(user)
+
+@router.get("/get-rescuers", status_code=status.HTTP_200_OK)
+def get_rescuers(user=Depends(service.get_current_user)):
+    result = service.get_rescuers()
+
+    if result:
+        return result
+    return {"rescuers": "No hay rescuers disponibles"}

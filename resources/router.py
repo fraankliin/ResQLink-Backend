@@ -20,3 +20,7 @@ def create_resource(payload: Resource, user=Depends(get_current_user)):
 def get_resources(user=Depends(get_current_user)):
     return service.get_resources(user)
 
+
+@router.get("/get-resources-by-incident/{incident_id}", status_code=status.HTTP_200_OK)
+def get_resources_by_incident(incident_id:str ,user=Depends(get_current_user)):
+    return service.get_resources_by_incident(incident_id)

@@ -20,3 +20,12 @@ def list_resources(user_id):
         .execute()
 
     )
+
+def list_resources_by_incident(incident_id):
+    return(
+        supabase.
+        table("incident_resources")
+        .select("resource_id")
+        .eq("incident_id", incident_id)
+        .execute()
+    )

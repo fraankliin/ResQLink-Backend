@@ -16,11 +16,6 @@ def create_incident(payload: IncidentSchema ,user=Depends(get_current_user) ):
     return service.create_incident(payload, user)
 
 
-@router.get("/get-inci", status_code=status.HTTP_200_OK)
-def get_resources(user=Depends(get_current_user)):
-    return service.get_resources(user)
-
-
 @router.post("/incident-resources/{incident_id}", status_code=status.HTTP_200_OK)
 def create_incident_resources(incident_id:str, payload: IncidentResourceSchema ,user=Depends(get_current_user) ):
     return service.assign_resources(incident_id,payload)
@@ -33,9 +28,16 @@ def get_incidents(user=Depends(get_current_user)):
 
 
 
-# @router.patch("/assign", status_code=status.HTTP_200_OK)
-# def assign_incident(payload: IncidentResourceSchema ,user=Depends(get_current_user) ):
-#
+@router.patch("/assign/{incident_id}", status_code=status.HTTP_200_OK)
+def assign_incident(incident_id:str , payload: dict, user=Depends(get_current_user) ):
+    print(f"incident_id {incident_id}")
+    return service.assign_incident(incident_id,payload)
+
+
+
+@router.get("/get-incident-by-rescuer", status_code=status.HTTP_200_OK)
+def get_incidents(user=Depends(get_current_user)):
+    return service.get_incident_by_rescuer(user.id)
 
 
 
